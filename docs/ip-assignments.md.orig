@@ -58,19 +58,6 @@
 | .1  | gateway | router   |
 | .2  | dns     | DNS/DHCP |
 
-### Wifi
-IP  | Name    | Notes
---- |---------|------
-.50 | ap-fl     | ap conf floor left foaier
-.51 | ap-fr     | ap conf floor right foaier
-.52 | ap-voc-a1 | ap room A stage
-.53 | ap-voc-a2 | ap room A back
-.54 | ap-voc-b  | ap room B stage
-.55 | ap-ws-c   | ap room C zone C3
-.56 | ap-team   | ap conf floor chillout area
-.57 | ap-ws-l   | ap workshop floor workshop area
-.58 | ap-ws-r   | ap workshop floor workshop area
-
 ### Video
 
 | IP  | Name    | Notes    |
