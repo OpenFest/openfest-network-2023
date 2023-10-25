@@ -1,0 +1,37 @@
+#!/bin/sh
+
+CACHE_FILE=/usr/lib/check_mk_agent/plugins/wifi_interfaces.cache
+
+echo "<<<wifi_interfaces:sep(59)>>>" # 59 = ascii semi-colon (;)
+
+interfaces=$(ls /sys/class/net | grep -iE 'phy.+')
+
+# Create empty file if it does not exist
+# First plugin run may produce garbage data or not run at all, which is OK
+# Cache file format: $interface,$time,$busy
+touch $CACHE_FILE
+cached_output="$(cat "$CACHE_FILE")"
+echo -n "" > "$CACHE_FILE"
+
+for interface in $interfaces
+do
+	ch_time_old="$(echo "$cached_output" | awk -v interface="$interface" -F';' '$1 ~ interface { print $2 }')"
+	ch_time_busy_old="$(echo "$cached_output" | awk -v interface="$interface" -F';' '$1 ~ interface { print $3 }')"
+
+	output="$(ethtool -S "$interface")"
+
+	ch_time="$(echo "$output" | awk -F ': ' '/ch_time:/{ print $2 }')"
+	ch_time_busy="$(echo "$output" | awk -F ': ' '/ch_time_busy:/{ print $2 }')"
+	echo "$interface;$ch_time;$ch_time_busy" >> "$CACHE_FILE"
+
+	# The noise is represented as an unsigned byte, we need a signed one. Thus, we subtract 2**7.
+	noise="$(expr $(echo "$output" | awk -F ': ' '/noise:/{ print $2 }') - 256)"
+	client_count="$(iw dev $interface station dump | wc -l)"
+
+	# We calculate the deltas to use for alarms locally; fields are u64
+	delta_ch_time=$(expr $(expr $ch_time - $ch_time_old) % 18446744073709551616)
+	delta_ch_time_busy=$(expr $(expr $ch_time_busy - $ch_time_busy_old) % 18446744073709551616)
+
+
+	echo "$interface;$ch_time;$ch_time_busy;$noise;$delta_ch_time;$delta_ch_time_busy;$client_count"
+done
