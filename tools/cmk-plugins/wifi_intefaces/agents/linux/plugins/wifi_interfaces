@@ -26,7 +26,9 @@ do
 
 	# The noise is represented as an unsigned byte, we need a signed one. Thus, we subtract 2**7.
 	noise="$(expr $(echo "$output" | awk -F ': ' '/noise:/{ print $2 }') - 256)"
-	client_count="$(iw dev $interface station dump | wc -l)"
+
+	phy="$(echo "$interface" | awk -F '-' '//{print $1 }')"
+	client_count="$(ls /sys/kernel/debug/ieee80211/$phy/netdev:$interface/stations/ | wc -l)"
 
 	# We calculate the deltas to use for alarms locally; fields are u64
 	delta_ch_time=$(expr $(expr $ch_time - $ch_time_old) % 18446744073709551616)
