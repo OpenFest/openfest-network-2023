@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CACHE_FILE=/usr/lib/check_mk_agent/plugins/wifi_interfaces.cache
+CACHE_FILE=/tmp/cmk_wifi_interfaces.cache
 
 echo "<<<wifi_interfaces:sep(59)>>>" # 59 = ascii semi-colon (;)
 
