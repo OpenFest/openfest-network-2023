@@ -9,7 +9,7 @@ def check_wifi_status(item, section):
     for interface in section:
         if interface['name'] == item:
             usage = interface['delta_ch_time_busy'] / interface['delta_ch_time'] * 100
-            yield Metric("delta_ch_time", interface['delta_ch_time_busy'])
+            yield Metric("delta_ch_time", interface['delta_ch_time'])
             yield Metric("delta_ch_time_busy", interface['delta_ch_time_busy'])
             yield Metric("channel_usage", usage, levels=(0,100))
             yield Metric("noise_floor", interface['noise'], levels=(-120,0))

@@ -20,19 +20,19 @@ metric_info["channel_usage"] = {
 
 metric_info["noise_floor"] = {
     "title": _("Noise Floor"),
-    "unit": "db",
+    "unit": "dbm",
     "color": "11/b",
 }
 
 metric_info["delta_ch_time"] = {
     "title": _("Channel Time delta"),
-    "unit": "",
+    "unit": "1/s",
     "color": "33/a",
 }
 
 metric_info["delta_ch_time_busy"] = {
     "title": _("Channel Busy Time delta"),
-    "unit": "",
+    "unit": "1/s",
     "color": "13/a",
 }
 
