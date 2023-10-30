@@ -2,10 +2,13 @@
 
 from .agent_based_api.v1 import *
 
-def check_wifi_status(item, section):
-    print(item)
-    print(section)
+def __try_parse_int(val: str, default: int) -> int:
+    try:
+        return int(val)
+    except ValueError:
+        return default
 
+def check_wifi_status(item, section):
     for interface in section:
         if interface['name'] == item:
             usage = interface['delta_ch_time_busy'] / interface['delta_ch_time'] * 100
@@ -23,7 +26,6 @@ def check_wifi_status(item, section):
                 yield Result(state = State.CRIT, summary = f"Clients: {interface['client_count']}, Channel usage: {usage:.02f}%")
 
 def discover_wifi_status(section):
-    print(section)
     for interface in section:
         yield Service(item=interface['name'])
 
@@ -34,8 +36,8 @@ def parse_wifi_interfaces(string_table):
             'ch_time' : int(row[1]),
             'ch_time_busy' : int(row[2]),
             'noise' : int(row[3]),
-            'delta_ch_time' : int(row[4]),
-            'delta_ch_time_busy' : int(row[5]),
+            'delta_ch_time' : __try_parse_int(row[4], 1),
+            'delta_ch_time_busy' : __try_parse_int(row[5], 0),
             'client_count' : int(row[6]),
         } for row in string_table]
 

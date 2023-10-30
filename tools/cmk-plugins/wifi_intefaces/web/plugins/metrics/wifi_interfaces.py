@@ -69,7 +69,7 @@ graph_info["noise_floor"] = {
 graph_info["channel_times"] = {
     "title": _("Channel Times"),
     "metrics": [
-        ("delta_ch_time", "stack"),
-        ("delta_ch_time_busy", "stack")
+        ("delta_ch_time", "line"),
+        ("delta_ch_time_busy", "area")
     ],
 }

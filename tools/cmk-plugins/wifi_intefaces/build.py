@@ -7,7 +7,7 @@ mkp.dist({'author': 'Albert Stefanov <aastefanov@outlook.com>',
  'name': 'wifi_interfaces',
  'title': 'OpenWRT Wi-Fi Interfaces',
  'download_url': 'https://github.com/openfest/openfest-network-2023',
- 'version': '0.0.2',
+ 'version': '0.0.3',
  'version.min_required': '2.0.0',
 },
 path='.')
