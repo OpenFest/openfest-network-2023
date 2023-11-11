@@ -1,0 +1,2 @@
+Specify interfaces in /etc/default/isc-dhcp-server, section INTERFACESv4
+Leave INTERFACESv6 empty

@@ -1,0 +1,1 @@
+KERNEL=="0000:01:00.0", SUBSYSTEM=="pci", DRIVER=="ixgbe", ATTR{vendor}=="0x8086", ATTR{device}=="0x154d", ATTR{sriov_numvfs}="15"

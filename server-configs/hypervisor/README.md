@@ -1,13 +1,5 @@
-# Virtual Machines
-
-## Resources used
-
-| Name            | vCPU | Memory (MiB) | Disk (GiB) | VLANs |
-| --------------- | ---- | ------------ | ---------- | ----- |
-| gateway-openwrt | 8    | 4096         | 1          | all   |
-| dns             | 2    | 4096         | 20         | all   |
-| monitoring      | 4    | 4096         | 40         | 20    |
-| voip            | 2    | 2048         | 20         | 26    |
+# Server related configs
+As of 2023, a hypervisor running KVM is created.
 
 ## SR-IOV
 
